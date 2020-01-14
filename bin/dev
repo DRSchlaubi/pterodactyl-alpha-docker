@@ -4,7 +4,7 @@
 # dev - modifies docker-compose params to suit development needs
 ##
 
-cd "$(dirname $0)/../"
+cd "$(dirname "$0")/../" || exit
 
 # source versions from txt file
 . ./manifest/version.txt
@@ -13,6 +13,7 @@ cd "$(dirname $0)/../"
 export PANEL_VERSION
 export DAEMON_VERSION
 export SFTP_VERSION
+export WINGS_VERSION
 
 # Just pass everything to compose
 docker-compose -f docker-compose.yml -f ./manifest/docker-compose.dev.yml $@

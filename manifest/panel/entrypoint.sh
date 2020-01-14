@@ -8,10 +8,9 @@
 init() {
     # Create the storage/cache directories
     if [ ! -d /data/storage ]; then
-        mkdir -p /data/storage
-        .storage.tmpl | while read -r line; do
+        while IFS= read -r line; do
             mkdir -p "/data/${line}"
-        done
+        done < .storage.tmpl
         chown -R nginx:nginx /data/storage
     fi
 
@@ -41,16 +40,16 @@ startServer() {
         # Generate base template
         touch /data/pterodactyl.conf
         {
-        echo "##" > /data/pterodactyl.conf;
-        echo "# Generated on: $(date +"%B %d %Y, %H:%M:%S")";
-        echo "# This file was generated on first start and contains ";
-        echo "# the key for sensitive information. All panel configuration ";
-        echo "# can be done here using the normal method (NGINX not included!),";
-        echo "# or using Docker's environment variables parameter.";
-        echo "##";
-        echo "";
-        echo "APP_KEY=SomeRandomString3232RandomString"
-         } >> /data/pterodactyl.conf
+          echo "##";
+          echo "# Generated on: $(date +"%B %d %Y, %H:%M:%S")";
+          echo "# This file was generated on first start and contains ";
+          echo "# the key for sensitive information. All panel configuration ";
+          echo "# can be done here using the normal method (NGINX not included!),";
+          echo "# or using Docker's environment variables parameter.";
+          echo "##";
+          echo "";
+          echo "APP_KEY=SomeRandomString3232RandomString"
+        } >> /data/pterodactyl.conf
 
         sleep 5
 
@@ -67,10 +66,10 @@ startServer() {
     fi
 
     # Allows Users to give MySQL/cache sometime to start up.
-    if "${STARTUP_TIMEOUT}" -gt "0"; then
+    if [ "${STARTUP_TIMEOUT}" -gt "0" ]; then
         echo "Starting Pterodactyl ${PANEL_VERSION} in ${STARTUP_TIMEOUT} seconds..."
         sleep "${STARTUP_TIMEOUT}"
-    else 
+    else
         echo "Starting Pterodactyl ${PANEL_VERSION}..."
     fi
 
@@ -86,7 +85,7 @@ startServer() {
     if [ "${DISABLE_WORKERS}" != "true" ]; then
         /usr/sbin/crond -f -l 0 &
         php /var/www/html/artisan queue:work database --queue=high,standard,low --sleep=3 --tries=3 &
-    else 
+    else
         echo "[Warning] Disabling Workers (pteroq & cron); It is recommended to keep these enabled unless you know what you are doing."
     fi
 

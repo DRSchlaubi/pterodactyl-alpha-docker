@@ -7,12 +7,12 @@ services:
         VERSION: ${PANEL_VERSION}
       context: ./manifest/panel
     image: ccarney16/pterodactyl-panel:${PANEL_VERSION}
-  daemon:
+  wings:
     build:
       args:
-        VERSION: ${DAEMON_VERSION}
-      context: ./manifest/daemon
-    image: ccarney16/pterodactyl-daemon:${DAEMON_VERSION}
+        VERSION: ${WINGS_VERSION}
+      context: "manifest/wings"
+    image: drschlaubi/pterodactyl-wings:${WINGS_VERSION}
   sftp:
     build:
       args:
