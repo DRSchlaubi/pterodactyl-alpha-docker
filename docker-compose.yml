@@ -51,7 +51,7 @@ services:
   wings:
     depends_on:
     - panel
-    image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-wings::v1.0.0-alpha.1
+    image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-wings:v1.0.0-alpha.1
     ports:
     -  9090:9090
     privileged: true
