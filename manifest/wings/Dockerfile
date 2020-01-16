@@ -7,10 +7,12 @@ ARG VERSION
 ENV DAEMON_VERSION=${VERSION} \
     UID=500
 
-WORKDIR /srv/daemon
+WORKDIR /srv/wings
 
 RUN \
  apk --update --no-cache add coreutils curl \
+ && mkdir -p /srv/wings/data/servers /srv/daemon-data \
+ && cd /srv/wings \
  && curl -Lo wings https://github.com/pterodactyl/wings/releases/download/${DAEMON_VERSION}/wings \
  && addgroup -S -g ${UID} pterodactyl && adduser -S -D -H -G pterodactyl -u ${UID} -s /bin/false pterodactyl \
  && apk del curl \

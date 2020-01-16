@@ -35,7 +35,7 @@ services:
     - cache
     - mysql
     env_file: .env
-    image: ccarney16/pterodactyl-panel:latest
+    image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-panel:latest
     restart: always
     volumes:
     - ./data:/data
@@ -44,22 +44,20 @@ services:
     - ${HTTPS_PORT}:443
 
 ##
-# Pterodactyl Daemon
+# Wings - Pterodactyl Daemon
 # If you don't plan on running the daemon on the same machine, 
 # you may comment/delete the section below.
 ##
-  daemon:
+  wings:
     depends_on:
     - panel
-    image: ccarney16/pterodactyl-daemon:latest
+    image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-wings:latest
     ports:
-    -  8080:8080
+    -  9090:9090
     privileged: true
     restart: always
     volumes:
-    - /srv/daemon/config:/srv/daemon/config
-    - /srv/daemon/packs:/srv/daemon/packs
-    - /srv/daemon-data:/srv/daemon-data
+    - /srv/wings/config.yml:/srv/wings/config.yml
 
     - /tmp/pterodactyl:/tmp/pterodactyl
 

@@ -6,18 +6,10 @@ services:
       args:
         VERSION: ${PANEL_VERSION}
       context: ./manifest/panel
-    image: ccarney16/pterodactyl-panel:${PANEL_VERSION}
+    image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-panel:${PANEL_VERSION}
   wings:
     build:
       args:
         VERSION: ${WINGS_VERSION}
       context: "manifest/wings"
-    image: drschlaubi/pterodactyl-wings:${WINGS_VERSION}
-  sftp:
-    build:
-      args:
-        VERSION: ${SFTP_VERSION}
-      context: ./manifest/sftp
-    image: ccarney16/pterodactyl-sftp:${SFTP_VERSION}
-    volumes_from:
-    - daemon
+    image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-wings:${WINGS_VERSION}
