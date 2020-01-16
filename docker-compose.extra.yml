@@ -31,14 +31,14 @@ panel:
 worker:
   command: php /var/www/html/artisan queue:work database --queue=high,standard,low --sleep=3 --tries=3
   env_file: .env
-  image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-panel:latest
+  image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-panel:${PANEL_VERSION}
   restart: always
   volumes_from:
   - panel
 cron:
   command: /usr/sbin/crond -f -l 0
   env_file: .env
-  image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-panel:latest
+  image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-panel:${PANEL_VERSION}
   restart: always
   volumes_from:
   - panel
