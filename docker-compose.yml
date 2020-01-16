@@ -35,7 +35,7 @@ services:
     - cache
     - mysql
     env_file: .env
-    image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-panel:${PANEL_VERSION}
+    image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-panel:v0.8-alpha.1
     restart: always
     volumes:
     - ./data:/data
@@ -51,7 +51,7 @@ services:
   wings:
     depends_on:
     - panel
-    image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-wings:${WINGS_VERSION}
+    image: docker.pkg.github.com/drschlaubi/pterodactyl-alpha-docker/pterodactyl-wings::v1.0.0-alpha.1
     ports:
     -  9090:9090
     privileged: true
