@@ -58,6 +58,8 @@ services:
     restart: always
     volumes:
     - /srv/wings/config.yml:/srv/wings/config.yml
+    - /srv/wings/data/servers:/srv/wings/data/servers/
+    - /srv/daemon-data/:/srv/daemon-data/
 
     - /tmp/pterodactyl:/tmp/pterodactyl
 
